@@ -1,3 +1,7 @@
+const listElem = document.querySelector('.list');
+const taskInput = document.querySelector('.task-input');
+const createTaskBtn = document.querySelector('.create-task-btn');
+
 const tasks = [
   { text: 'Buy milk', done: false },
   { text: 'Pick up Tom from airport', done: false },
@@ -6,25 +10,51 @@ const tasks = [
   { text: 'Buy meat', done: true },
 ];
 
-const addListElement = (listItems) => {
-  const list = document.querySelector('.list');
-  const listItemsElems = listItems
+const changeTaskStatus = (id) => {
+  tasks[id].done = !tasks[id].done 
+  listElem.innerHTML = '';
+  renderTasks(tasks);
+};
+
+const renderTasks = (tasksList) => {
+  const tasksElems = tasksList
     .sort((a, b) => a.done - b.done)
-    .map(({ text, done }) => {
-      const element = document.createElement('li');
-      element.classList.add('list__item');
-      if (done) {
-        element.classList.add('list__item_done');
-      }
+    .map(({ text, done }, index) => {
+      const listItemElem = document.createElement('li');
+      listItemElem.classList.add('list__item');
+      listItemElem.dataset.taskId = index;
+      tasks[index].id = index;
       const checkbox = document.createElement('input');
       checkbox.setAttribute('type', 'checkbox');
       checkbox.checked = done;
       checkbox.classList.add('list__item-checkbox');
-      element.append(checkbox, text);
 
-      return element;
+      checkbox.addEventListener('click', () =>
+        changeTaskStatus(listItemElem.dataset.taskId)
+      );
+
+      if (done) {
+        listItemElem.classList.add('list__item_done');
+      }
+      listItemElem.append(checkbox, text);
+
+      return listItemElem;
     });
-  list.append(...listItemsElems);
+
+  listElem.append(...tasksElems);
 };
 
-addListElement(tasks);
+const addTask = () => {
+  if (taskInput.value === '') return;
+  tasks.push({
+    text: taskInput.value,
+    done: false,
+  });
+  listElem.innerHTML = '';
+  renderTasks(tasks);
+  taskInput.value = '';
+};
+
+createTaskBtn.addEventListener('click', addTask);
+
+renderTasks(tasks);
