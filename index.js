@@ -6,40 +6,41 @@ const tasks = [
   { text: 'Buy milk', done: false },
   { text: 'Pick up Tom from airport', done: false },
   { text: 'Visit party', done: false },
-  { text: 'Visit doctor', done: true },
-  { text: 'Buy meat', done: true },
+  { text: 'Visit doctor', done: false },
+  { text: 'Buy meat', done: false },
 ];
 
 const changeTaskStatus = (id) => {
-  tasks[id].done = !tasks[id].done 
+  tasks[id].done = !tasks[id].done;
+  tasks.sort((a, b) => a.done - b.done);
   listElem.innerHTML = '';
   renderTasks(tasks);
 };
 
 const renderTasks = (tasksList) => {
-  const tasksElems = tasksList
-    .sort((a, b) => a.done - b.done)
-    .map(({ text, done }, index) => {
-      const listItemElem = document.createElement('li');
-      listItemElem.classList.add('list__item');
-      listItemElem.dataset.taskId = index;
-      tasks[index].id = index;
-      const checkbox = document.createElement('input');
-      checkbox.setAttribute('type', 'checkbox');
-      checkbox.checked = done;
-      checkbox.classList.add('list__item-checkbox');
+  const tasksElems = tasksList.map(({ text, done }, index) => {
+    const listItemElem = document.createElement('li');
+    listItemElem.classList.add('list__item');
 
-      checkbox.addEventListener('click', () =>
-        changeTaskStatus(listItemElem.dataset.taskId)
-      );
+    listItemElem.dataset.taskId = index;
+    tasks[index].id = index;
 
-      if (done) {
-        listItemElem.classList.add('list__item_done');
-      }
-      listItemElem.append(checkbox, text);
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.checked = done;
+    checkbox.classList.add('list__item-checkbox');
 
-      return listItemElem;
-    });
+    checkbox.addEventListener('click', () =>
+      changeTaskStatus(listItemElem.dataset.taskId)
+    );
+
+    if (done) {
+      listItemElem.classList.add('list__item_done');
+    }
+    listItemElem.append(checkbox, text);
+
+    return listItemElem;
+  });
 
   listElem.append(...tasksElems);
 };
