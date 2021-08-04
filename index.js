@@ -6,7 +6,7 @@ const tasks = [
   { text: 'Buy milk', done: false },
   { text: 'Pick up Tom from airport', done: false },
   { text: 'Visit party', done: false },
-  { text: 'Visit doctor', done: false },
+  { text: 'Visit doctor', done: true },
   { text: 'Buy meat', done: false },
 ];
 
@@ -18,7 +18,10 @@ const changeTaskStatus = (id) => {
 
 const renderTasks = (tasksList) => {
   const tasksElems = tasksList
-    .sort((a, b) => a.done - b.done)
+    .sort((a, b) => {
+      if ( a.done - b.done) return a.done - b.done;
+      if (a.date - b.date) return a.date - b.date;
+    })
     .map(({ text, done }, index) => {
       const listItemElem = document.createElement('li');
       listItemElem.classList.add('list__item');
@@ -51,6 +54,7 @@ const addTask = () => {
   tasks.unshift({
     text: taskInput.value,
     done: false,
+    date: new Date(),
   });
   listElem.innerHTML = '';
   renderTasks(tasks);
