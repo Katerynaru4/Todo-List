@@ -48,7 +48,7 @@ const renderTasks = (tasksList) => {
 
 const addTask = () => {
   if (taskInput.value === '') return;
-  tasks.push({
+  tasks.unshift({
     text: taskInput.value,
     done: false,
   });
