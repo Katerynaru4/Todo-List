@@ -23,6 +23,7 @@ const changeTaskStatus = (id) => {
 const renderTasks = (tasksList) => {
   const tasksElems = tasksList
     .sort((a, b) => {
+      if (a.done && b.done) return 0;
       if (a.done - b.done) return a.done - b.done;
       if (a.date - b.date) return a.date - b.date;
     })
