@@ -87,7 +87,8 @@ const renderTasks = (tasksList) => {
 
 listElem.addEventListener('click', (event) => {
   event.stopPropagation();
-  changeTaskStatus(event.target.dataset.taskId);
+  if (event.target.dataset.taskId)
+    changeTaskStatus(event.target.dataset.taskId);
 });
 
 const addTask = () => {
