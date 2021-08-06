@@ -22,16 +22,16 @@ const tasks = [
   {
     text: '3 Visit party',
     id: 3,
-    done: false,
+    done: true,
     creationDate: new Date(2021, 7, 6, 11, 45),
-    finishDate: null,
+    finishDate: new Date(2021, 7, 6, 12, 45),
   },
   {
     text: '2 Visit doctor',
     id: 4,
-    done: false,
+    done: true,
     creationDate: new Date(2021, 7, 6, 12, 45),
-    finishDate: null,
+    finishDate: new Date(2021, 7, 6, 12, 50),
   },
   {
     text: '1 Buy meat',
