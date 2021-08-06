@@ -7,33 +7,38 @@ const createTaskBtn = document.querySelector('.create-task-btn');
 const tasks = [
   {
     text: '5 Buy milk',
-    id: 0.31709864797951631,
+    id: 1,
     done: false,
     creationDate: new Date(2021, 7, 6, 9, 45),
+    finishDate: null,
   },
   {
     text: '4 Pick up Tom from airport',
-    id: 0.31709840797251632,
+    id: 2,
     done: false,
     creationDate: new Date(2021, 7, 6, 10, 45),
+    finishDate: null,
   },
   {
     text: '3 Visit party',
-    id: 0.31709864797954533,
+    id: 3,
     done: false,
     creationDate: new Date(2021, 7, 6, 11, 45),
+    finishDate: null,
   },
   {
     text: '2 Visit doctor',
-    id: 0.31709864738481634,
+    id: 4,
     done: false,
     creationDate: new Date(2021, 7, 6, 12, 45),
+    finishDate: null,
   },
   {
     text: '1 Buy meat',
-    id: 0.31709454797951635,
+    id: 5,
     done: false,
     creationDate: new Date(2021, 7, 6, 13, 45),
+    finishDate: null,
   },
 ];
 
@@ -88,9 +93,10 @@ const addTask = () => {
   if (taskInput.value === '') return;
   tasks.push({
     text: taskInput.value,
-    id: Math.random(),
+    id: tasks.length + 1,
     done: false,
     creationDate: new Date(),
+    finishDate: null,
   });
   listElem.innerHTML = '';
   renderTasks(tasks);
