@@ -44,9 +44,9 @@ const renderTasks = (tasksList) => {
         return a.done - b.done;
       }
       if (a.done) {
-        return b.finishDate - a.finishDate;
+        return new Date(b.finishDate) - new Date(a.finishDate);
       }
-      return b.creationDate - a.creationDate;
+      return new Date(b.creationDate) - new Date(a.creationDate);
     })
     .map(({ text, id, done }) => {
       const listItemElem = document.createElement('li');
@@ -70,6 +70,7 @@ const renderTasks = (tasksList) => {
 
 const changeStatusHandler = (event) => {
   event.stopPropagation();
+  if (!event.target.dataset.taskId) return;
   const checkedtask = tasks.find(
     (task) => task.id === Number(event.target.dataset.taskId)
   );
