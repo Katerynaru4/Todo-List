@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 const listElem = document.querySelector('.list');
 const taskInput = document.querySelector('.task-input');
@@ -6,34 +6,34 @@ const createTaskBtn = document.querySelector('.create-task-btn');
 
 const tasks = [
   {
-    text: '1 Buy milk',
+    text: '5 Buy milk',
     id: 0.31709864797951631,
     done: false,
-    creationDate: new Date(2021, 08, 06, 9, 45),
+    creationDate: new Date(2021, 7, 6, 9, 45),
   },
   {
-    text: '2 Pick up Tom from airport',
+    text: '4 Pick up Tom from airport',
     id: 0.31709840797251632,
     done: false,
-    creationDate: new Date(2021, 08, 06, 10, 45),
+    creationDate: new Date(2021, 7, 6, 10, 45),
   },
   {
     text: '3 Visit party',
     id: 0.31709864797954533,
     done: false,
-    creationDate: new Date(2021, 08, 06, 11, 45),
+    creationDate: new Date(2021, 7, 6, 11, 45),
   },
   {
-    text: '4 Visit doctor',
+    text: '2 Visit doctor',
     id: 0.31709864738481634,
     done: false,
-    creationDate: new Date(2021, 08, 06, 12, 45),
+    creationDate: new Date(2021, 7, 6, 12, 45),
   },
   {
-    text: '5 Buy meat',
+    text: '1 Buy meat',
     id: 0.31709454797951635,
     done: false,
-    creationDate: new Date(2021, 08, 06, 13, 45),
+    creationDate: new Date(2021, 7, 6, 13, 45),
   },
 ];
 
@@ -53,12 +53,17 @@ const changeTaskStatus = (id) => {
 const renderTasks = (tasksList) => {
   const tasksElems = tasksList
     .sort((a, b) => {
+      if (a.done - b.done) {
+        return a.done - b.done;
+      }
+
       if (a.done && b.done) {
         return b.doneDate - a.doneDate;
       }
-      if (a.done - b.done) return a.done - b.done;
-      if (a.creationDate - b.creationDate)
-        return a.creationDate - b.creationDate;
+
+      if (!a.done && !b.done) {
+        return b.creationDate - a.creationDate;
+      }
     })
     .map(({ text, id, done }, index) => {
       const listItemElem = document.createElement('li');
@@ -91,7 +96,7 @@ const addTask = () => {
     text: taskInput.value,
     id: Math.random(),
     done: false,
-    date: new Date(),
+    creationDate: new Date(),
   });
   listElem.innerHTML = '';
   renderTasks(tasks);
