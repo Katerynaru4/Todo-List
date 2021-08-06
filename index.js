@@ -2,17 +2,7 @@ const listElem = document.querySelector('.list');
 const taskInput = document.querySelector('.task-input');
 const createTaskBtn = document.querySelector('.create-task-btn');
 
-const tasks = [
-  { text: '1 Buy milk', done: false, date: new Date(2021, 08, 06, 9, 45) },
-  {
-    text: '2 Pick up Tom from airport',
-    done: false,
-    date: new Date(2021, 08, 06, 10, 45),
-  },
-  { text: '3 Visit party', done: false, date: new Date(2021, 08, 06, 11, 45) },
-  { text: '4 Visit doctor', done: true, date: new Date(2021, 08, 06, 12, 45) },
-  { text: '5 Buy meat', done: false, date: new Date(2021, 08, 06, 13, 45) },
-];
+const tasks = [];
 
 const changeTaskStatus = (id) => {
   tasks[id].done = !tasks[id].done;
