@@ -37,35 +37,18 @@ const tasks = [
   },
 ];
 
-const changeTaskStatus = (id) => {
-  const checkedtask = tasks.find((task) => task.id === Number(id));
-  checkedtask.done = !checkedtask.done;
-  if (checkedtask.done) {
-    checkedtask.doneDate = new Date();
-  }
-  if (!checkedtask.done) {
-    delete checkedtask.doneDate;
-  }
-  listElem.innerHTML = '';
-  renderTasks(tasks);
-};
-
 const renderTasks = (tasksList) => {
   const tasksElems = tasksList
     .sort((a, b) => {
-      if (a.done - b.done) {
+      if (a.done - b.done !== 0) {
         return a.done - b.done;
       }
-
-      if (a.done && b.done) {
-        return b.doneDate - a.doneDate;
+      if (a.done) {
+        return b.finishDate - a.finishDate;
       }
-
-      if (!a.done && !b.done) {
-        return b.creationDate - a.creationDate;
-      }
+      return b.creationDate - a.creationDate;
     })
-    .map(({ text, id, done }, index) => {
+    .map(({ text, id, done }) => {
       const listItemElem = document.createElement('li');
       listItemElem.classList.add('list__item');
 
@@ -85,11 +68,20 @@ const renderTasks = (tasksList) => {
   listElem.append(...tasksElems);
 };
 
-listElem.addEventListener('click', (event) => {
+const changeStatusHandler = (event) => {
   event.stopPropagation();
-  if (event.target.dataset.taskId)
-    changeTaskStatus(event.target.dataset.taskId);
-});
+  const checkedtask = tasks.find(
+    (task) => task.id === Number(event.target.dataset.taskId)
+  );
+  checkedtask.done = !checkedtask.done;
+  if (checkedtask.done) {
+    checkedtask.finishDate = new Date();
+  }
+  listElem.innerHTML = '';
+  renderTasks(tasks);
+};
+
+listElem.addEventListener('click', changeStatusHandler);
 
 const addTask = () => {
   if (taskInput.value === '') return;
