@@ -3,11 +3,15 @@ const taskInput = document.querySelector('.task-input');
 const createTaskBtn = document.querySelector('.create-task-btn');
 
 const tasks = [
-  { text: 'Buy milk', done: false },
-  { text: 'Pick up Tom from airport', done: false },
-  { text: 'Visit party', done: false },
-  { text: 'Visit doctor', done: true },
-  { text: 'Buy meat', done: false },
+  { text: '1 Buy milk', done: false, date: new Date(2021, 08, 06, 9, 45) },
+  {
+    text: '2 Pick up Tom from airport',
+    done: false,
+    date: new Date(2021, 08, 06, 10, 45),
+  },
+  { text: '3 Visit party', done: false, date: new Date(2021, 08, 06, 11, 45) },
+  { text: '4 Visit doctor', done: true, date: new Date(2021, 08, 06, 12, 45) },
+  { text: '5 Buy meat', done: false, date: new Date(2021, 08, 06, 13, 45) },
 ];
 
 const changeTaskStatus = (id) => {
@@ -19,7 +23,7 @@ const changeTaskStatus = (id) => {
 const renderTasks = (tasksList) => {
   const tasksElems = tasksList
     .sort((a, b) => {
-      if ( a.done - b.done) return a.done - b.done;
+      if (a.done - b.done) return a.done - b.done;
       if (a.date - b.date) return a.date - b.date;
     })
     .map(({ text, done }, index) => {
@@ -51,7 +55,7 @@ const renderTasks = (tasksList) => {
 
 const addTask = () => {
   if (taskInput.value === '') return;
-  tasks.unshift({
+  tasks.push({
     text: taskInput.value,
     done: false,
     date: new Date(),
