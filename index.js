@@ -43,6 +43,7 @@ const tasks = [
 ];
 
 const renderTasks = (tasksList) => {
+  listElem.innerHTML = '';
   const tasksElems = tasksList
     .sort((a, b) => {
       if (a.done - b.done !== 0) {
@@ -80,10 +81,7 @@ const changeStatusHandler = (event) => {
     (task) => task.id === Number(event.target.dataset.taskId)
   );
   checkedtask.done = !checkedtask.done;
-  if (checkedtask.done) {
-    checkedtask.finishDate = new Date();
-  }
-  listElem.innerHTML = '';
+  checkedtask.finishDate = new Date();
   renderTasks(tasks);
 };
 
@@ -98,7 +96,6 @@ const addTask = () => {
     creationDate: new Date(),
     finishDate: null,
   });
-  listElem.innerHTML = '';
   renderTasks(tasks);
   taskInput.value = '';
 };
