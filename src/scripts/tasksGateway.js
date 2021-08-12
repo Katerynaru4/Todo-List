@@ -29,6 +29,7 @@ export const updateTask = (taskId, updatedTaskData) => {
     body: JSON.stringify(updatedTaskData),
   });
 };
+
 export const deleteTask = (taskId) => {
   return fetch(`${baseUrl}/${taskId}`, {
     method: 'DELETE',

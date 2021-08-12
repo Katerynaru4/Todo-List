@@ -20,21 +20,29 @@ const createCheckbox = ({ id, done }) => {
   return checkboxElem;
 };
 
-const createListItem = ({ text, done, id }) => {
-  const listItemElem = document.createElement('li');
-  listItemElem.classList.add('list-item', 'list__item');
-  const checkboxElem = createCheckbox({ id, done });
-
-  if (done) {
-    listItemElem.classList.add('list-item_done');
-  }
+const createTextElem = (text) => {
   const textElem = document.createElement('span');
   textElem.classList.add('list-item__text');
   textElem.textContent = text;
+  return textElem;
+};
 
+const createDeleteBtn = (id) => {
   const deleteBtnElem = document.createElement('button');
   deleteBtnElem.classList.add('list-item__delete-btn');
   deleteBtnElem.dataset.taskId = id;
+  return deleteBtnElem;
+};
+
+const createListItem = ({ text, done, id }) => {
+  const listItemElem = document.createElement('li');
+  listItemElem.classList.add('list-item', 'list__item');
+  if (done) {
+    listItemElem.classList.add('list-item_done');
+  }
+  const checkboxElem = createCheckbox({ id, done });
+  const textElem = createTextElem(text);
+  const deleteBtnElem = createDeleteBtn(id);
 
   listItemElem.append(checkboxElem, textElem, deleteBtnElem);
 

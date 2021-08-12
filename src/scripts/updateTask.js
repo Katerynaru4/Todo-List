@@ -1,6 +1,7 @@
 import { renderTasks } from './renderTasks.js';
 import { getItem, setItem } from './storage.js';
 import { updateTask, getTasksList, deleteTask } from './tasksGateway.js';
+import { readUpdateServerData } from './common.js';
 
 const changeStatusHandler = (e) => {
   const tasksList = getItem('tasksList');
@@ -15,22 +16,13 @@ const changeStatusHandler = (e) => {
     done,
     finishDate: done ? new Date().toISOString() : null,
   };
+  readUpdateServerData(updateTask(taskId, updatedTask));
+};
 
-  updateTask(taskId, updatedTask)
-    .then(() => getTasksList())
-    .then((newTasksList) => {
-      setItem('tasksList', newTasksList);
-      renderTasks();
-    });
-};
 const deleteSelectedTask = (id) => {
-  deleteTask(id)
-    .then(() => getTasksList())
-    .then((newTasksList) => {
-      setItem('tasksList', newTasksList);
-      renderTasks();
-    });
+  readUpdateServerData(deleteTask(id));
 };
+
 export const onClickTask = (e) => {
   const taskId = e.target.dataset.taskId;
   if (!taskId) return;
