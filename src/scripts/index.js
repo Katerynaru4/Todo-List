@@ -1,8 +1,13 @@
 import { renderTasks } from './renderTasks.js';
-import { initTodoListHandlers } from './todoList.js';
+import { setItem } from './storage.js';
+import { getTasksList } from './tasksGateway.js';
+import { initTodoListHandlers } from './TodoList.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderTasks();
+  getTasksList().then((tasksList) => {
+    setItem('tasksList', tasksList);
+    renderTasks();
+  });
   initTodoListHandlers();
 });
 
