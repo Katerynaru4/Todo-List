@@ -1,5 +1,5 @@
 import { createTask } from './tasksGateway.js';
-import { readUpdateServerData } from './common.js';
+import { renderTasks } from './renderTasks.js';
 
 export const onCreateTask = () => {
   const taskInputElem = document.querySelector('.task-input');
@@ -13,5 +13,5 @@ export const onCreateTask = () => {
   };
   taskInputElem.value = '';
 
-  readUpdateServerData(createTask(newTask));
+  createTask(newTask).then(() => renderTasks());
 };

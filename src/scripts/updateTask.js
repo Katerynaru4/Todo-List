@@ -1,25 +1,24 @@
-import { getItem } from './storage.js';
-import { updateTask, deleteTask } from './tasksGateway.js';
-import { readUpdateServerData } from './common.js';
+import { renderTasks } from './renderTasks.js';
+import { updateTask, deleteTask, getTasksList } from './tasksGateway.js';
 
 const changeStatusHandler = (e) => {
-  const tasksList = getItem('tasksList');
   const taskId = e.target.dataset.taskId;
   const done = e.target.checked;
 
-  const { text, creationDate } = tasksList.find((task) => task.id === taskId);
-
-  const updatedTask = {
-    text,
-    creationDate,
-    done,
-    finishDate: done ? new Date().toISOString() : null,
-  };
-  readUpdateServerData(updateTask(taskId, updatedTask));
+  getTasksList().then((tasksList) => {
+    const { text, creationDate } = tasksList.find((task) => task.id === taskId);
+    const updatedTask = {
+      text,
+      creationDate,
+      done,
+      finishDate: done ? new Date().toISOString() : null,
+    };
+    updateTask(taskId, updatedTask).then(() => renderTasks());
+  });
 };
 
 const deleteSelectedTask = (id) => {
-  readUpdateServerData(deleteTask(id));
+  deleteTask(id).then(() => renderTasks());
 };
 
 export const onClickTask = (e) => {

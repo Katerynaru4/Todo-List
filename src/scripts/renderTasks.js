@@ -1,4 +1,5 @@
-import { getItem } from './storage.js';
+import { getTasksList } from './tasksGateway.js';
+
 const listElem = document.querySelector('.list');
 
 const compareTasks = (a, b) => {
@@ -50,10 +51,9 @@ const createListItem = ({ text, done, id }) => {
 };
 
 export const renderTasks = () => {
-  const tasksList = getItem('tasksList') || [];
-
-  listElem.innerHTML = '';
-  const tasksElems = tasksList.sort(compareTasks).map(createListItem);
-
-  listElem.append(...tasksElems);
+  getTasksList().then((dataTasks) => {
+    listElem.innerHTML = '';
+    const tasksElems = dataTasks.sort(compareTasks).map(createListItem);
+    listElem.append(...tasksElems);
+  });
 };
