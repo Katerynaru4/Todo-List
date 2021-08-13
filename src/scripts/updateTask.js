@@ -1,6 +1,5 @@
-import { renderTasks } from './renderTasks.js';
-import { getItem, setItem } from './storage.js';
-import { updateTask, getTasksList, deleteTask } from './tasksGateway.js';
+import { getItem } from './storage.js';
+import { updateTask, deleteTask } from './tasksGateway.js';
 import { readUpdateServerData } from './common.js';
 
 const changeStatusHandler = (e) => {
