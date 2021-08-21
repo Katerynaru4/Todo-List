@@ -1,4 +1,4 @@
-import { getTasksList } from './tasksGateway.js';
+import { getTasksList } from './tasksGateway';
 
 const listElem = document.querySelector('.list');
 
@@ -50,10 +50,10 @@ const createListItem = ({ text, done, id }) => {
   return listItemElem;
 };
 
-export const renderTasks = () => {
+export default function renderTasks() {
   getTasksList().then((dataTasks) => {
     listElem.innerHTML = '';
     const tasksElems = dataTasks.sort(compareTasks).map(createListItem);
     listElem.append(...tasksElems);
   });
-};
+}

@@ -1,8 +1,8 @@
-import { renderTasks } from './renderTasks.js';
-import { updateTask, deleteTask, getTasksList } from './tasksGateway.js';
+import renderTasks from './renderTasks';
+import { updateTask, deleteTask, getTasksList } from './tasksGateway';
 
 const changeStatusHandler = (e) => {
-  const taskId = e.target.dataset.taskId;
+  const { taskId } = e.target.dataset;
   const done = e.target.checked;
 
   getTasksList().then((tasksList) => {
@@ -21,11 +21,12 @@ const deleteSelectedTask = (id) => {
   deleteTask(id).then(() => renderTasks());
 };
 
-export const onClickTask = (e) => {
-  const taskId = e.target.dataset.taskId;
+export default function onClickTask(e) {
+  const { taskId } = e.target.dataset;
   if (!taskId) return;
 
-  if (e.target.className === 'list-item__delete-btn')
+  if (e.target.className === 'list-item__delete-btn') {
     deleteSelectedTask(taskId);
+  }
   if (e.target.className === 'list-item__checkbox') changeStatusHandler(e);
-};
+}

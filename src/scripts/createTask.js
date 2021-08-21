@@ -1,7 +1,7 @@
-import { createTask } from './tasksGateway.js';
-import { renderTasks } from './renderTasks.js';
+import { createTask } from './tasksGateway';
+import renderTasks from './renderTasks';
 
-export const onCreateTask = () => {
+export default function onCreateTask() {
   const taskInputElem = document.querySelector('.task-input');
   if (taskInputElem.value === '') return;
 
@@ -14,4 +14,4 @@ export const onCreateTask = () => {
   taskInputElem.value = '';
 
   createTask(newTask).then(() => renderTasks());
-};
+}
