@@ -6,7 +6,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "webpack --mode production",
-    "watch": "webpack --mode development --devtool eval-source-map -w"
+    "start": "webpack-dev-server --mode development --devtool eval-source-map --open"
   },
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "style-loader": "^3.2.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0"
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
     "core-js": "^3.16.2"
